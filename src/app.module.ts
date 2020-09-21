@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { environment } from 'src/environments/environment';
+
 import { AppRoutingModule } from 'src/app-routing.module';
 
 import { PageGuard } from 'src/guards/page.guard';
@@ -21,11 +23,12 @@ import { FarmComponent } from 'src/components/farm/farm.component';
 import { FarmIconComponent } from 'src/common/farm-icon/farm-icon.component';
 import { FarmService } from 'src/services/farm.service';
 import { SaveService } from 'src/services/save.service';
+import {APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
   imports:      [ AppRoutingModule, BrowserModule, FormsModule, MatButtonModule, MatIconModule, MatTooltipModule ],
   declarations: [ AppComponent, SidemenuComponent, MainComponent, CoinbuttonComponent, FarmComponent, FarmIconComponent ],
   bootstrap:    [ AppComponent ],
-  providers:    [ ButtonService, CoinService, PageService, PageGuard, FarmService, SaveService ]
+  providers:    [ ButtonService, CoinService, PageService, PageGuard, FarmService, SaveService, {provide: APP_BASE_HREF, useValue: environment.baseHref} ]
 })
 export class AppModule { }
