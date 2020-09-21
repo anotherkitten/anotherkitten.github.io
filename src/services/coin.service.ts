@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
-import { interval } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 
 import { Save, Saveable } from 'src/models/save';
 
 @Injectable()
-export class CoinService implements Saveable {
-  mainloop;
-  coin = 275;
+export class CoinService implements OnDestroy, Saveable {
+  mainloop: Subscription;
+  coin = 5;
   baseIncome = 0;
 
   constructor() {
     this.mainloop = interval(1e3).subscribe(this.loopFunc);
+  }
+
+  ngOnDestroy() {
+    this.mainloop.unsubscribe();
   }
 
   save(): Save {

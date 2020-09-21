@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,14 +21,14 @@ import { SidemenuComponent } from 'src/components/sidemenu/sidemenu.component';
 import { MainComponent } from 'src/components/main/main.component';
 import { CoinbuttonComponent } from 'src/components/coinbutton/coinbutton.component';
 import { FarmComponent } from 'src/components/farm/farm.component';
+import { UpgradesComponent } from 'src/components/upgrades/upgrades.component';
 import { FarmIconComponent } from 'src/common/farm-icon/farm-icon.component';
 import { FarmService } from 'src/services/farm.service';
 import { SaveService } from 'src/services/save.service';
-import {APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
   imports:      [ AppRoutingModule, BrowserModule, FormsModule, MatButtonModule, MatIconModule, MatTooltipModule ],
-  declarations: [ AppComponent, SidemenuComponent, MainComponent, CoinbuttonComponent, FarmComponent, FarmIconComponent ],
+  declarations: [ AppComponent, SidemenuComponent, MainComponent, CoinbuttonComponent, FarmComponent, FarmIconComponent, UpgradesComponent ],
   bootstrap:    [ AppComponent ],
   providers:    [ ButtonService, CoinService, PageService, PageGuard, FarmService, SaveService, {provide: APP_BASE_HREF, useValue: environment.baseHref} ]
 })

@@ -15,6 +15,7 @@ export class SaveService implements OnDestroy {
   lastSaved = +new Date();
   lastExported = 0;
   $autosave: Subscription;
+  curVersion = "v0.0.1";
 
   saveServices: {[key: string]: Saveable} = {
     buttons: this.buttonService,
@@ -44,7 +45,7 @@ export class SaveService implements OnDestroy {
   }
 
   generateSave(): SaveFile {
-    const saveFile: SaveFile = {};
+    const saveFile: SaveFile = {}; //{ info: { version: this.curVersion }};
 
     for (let key in this.saveServices) {
       saveFile[key] = this.saveServices[key].save();
