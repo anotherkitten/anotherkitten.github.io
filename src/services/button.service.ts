@@ -25,7 +25,7 @@ export class ButtonService implements Saveable {
   }
 
   load(data: Save) {
-    this.buttons = data.buttons;
+    this.buttons = data.buttons.map((btn: CoinButton) => Object.assign(new CoinButton(this), btn, {disabled: false}));
   }
 
   addButton() {

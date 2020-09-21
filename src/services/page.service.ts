@@ -29,7 +29,7 @@ export class PageService implements Saveable {
   }
 
   load(data: Save) {
-    this.pages = data.pages;
+    this.pages = data.pages.map((page: Page) => Object.assign(new Page(0,0,"","",""), page));
   }
 
   getLockedPages() {

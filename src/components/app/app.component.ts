@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, AfterContentChecked  {
   }
 
   ngOnInit() {
+    this.saveService.loadSave();
     this.updateNav();
   }
 

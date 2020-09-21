@@ -53,11 +53,26 @@ export class SaveService implements OnDestroy {
     return saveFile;
   }
 
-  loadSave() {
+  loadSave(saveFile?: SaveFile) {
+    if (!saveFile) {
+      const localSaveFile = localStorage.getItem("EllieBrowsergameSave");
+      if (localSaveFile !== null) {
+        saveFile = JSON.parse(localSaveFile);
+      } else {
+        return;
+      }
+    }
 
+    for (let key in saveFile) {
+      this.saveServices[key].load(saveFile[key]);
+    }
   }
 
   browserSave = () => {
+    const saveFile = this.generateSave();
+    const jsonSaveFile = JSON.stringify(saveFile, this.jsonFilter);
+
+    localStorage.setItem("EllieBrowsergameSave", jsonSaveFile);
     this.lastSaved = +new Date();
   }
 
@@ -67,5 +82,14 @@ export class SaveService implements OnDestroy {
 
   importSave() {
 
+  }
+
+  jsonFilter(name, val) {
+    const doNotIncludeNames = ["buttonService"];
+    if (doNotIncludeNames.includes(name)) {
+      return undefined;
+    } else {
+      return val;
+    }
   }
 }

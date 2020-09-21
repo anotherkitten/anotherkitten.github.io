@@ -6,7 +6,7 @@ import { Save, Saveable } from 'src/models/save';
 @Injectable()
 export class CoinService implements Saveable {
   mainloop;
-  coin = 10;
+  coin = 275;
   baseIncome = 0;
 
   constructor() {
