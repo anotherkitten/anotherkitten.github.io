@@ -6,10 +6,10 @@
     "ellie-browsergame": {
       "projectType": "application",
       "schematics": {
-  		"@schematics/angular:component": {
-  		  "style": "scss"
-  		}
-	  },
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -121,8 +121,13 @@
               "devServerTarget": "ellie-browsergame:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ellie-browsergame"
 }
