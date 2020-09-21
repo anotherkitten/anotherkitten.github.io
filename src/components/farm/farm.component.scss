@@ -1,0 +1,135 @@
+.farm-body {
+  color: #ddd;
+  text-align: center;
+  width: 100%;
+}
+
+.farm-header {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.farm-subheader {
+  padding-bottom: 16px;
+}
+
+.farm-field-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 0 16px;
+}
+
+.farm-field {
+  margin-bottom: 16px;
+  border-collapse: collapse;
+}
+
+.farm-plot {
+  border: 2px solid rgb(161, 139, 127);
+  width: 64px;
+  height: 64px;
+  background-color: rgb(138, 99, 71);
+}
+
+.farm-crop-select {
+  padding: 8px 0;
+}
+
+.bottom-border {
+  border-bottom: 2px solid #888;
+}
+
+.farm-icon-button.mat-icon-button {
+  height: 64px;
+  width: 64px;
+  transition: background-color 0.5s;
+}
+
+.selected-crop {
+  background-color: #fff2;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 2;
+  color: #ddd;
+  font-size: 14px;
+  background-color: #222;
+  opacity: 0.8;
+  visibility: hidden;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  user-select: none;
+
+  top: calc(100% + 4px);
+  left: -100px;
+  right: -100px;
+  margin: auto;
+  width: 125px;
+}
+
+.tooltip-header {
+  border-bottom: 1px solid #888;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+}
+
+.bottom-section {
+  color: #ddd;
+  display: flex;
+  justify-content: center;
+  margin: 16px auto;
+}
+
+.crop-info {
+  padding: 0 8px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  & .crop-info-text {
+    margin: 0 8px;
+    padding: 8px 0;
+    width: 100%;
+  }
+
+  & + .crop-info {
+    border-left: 2px solid #888;
+  }
+}
+
+.sell {
+  &-crop-button {
+    margin: 2px;
+    color: #ddd;
+    background-color: #fff2;
+
+    &:hover {
+      background-color: #fff4;
+    }
+  }
+}
+
+.upgrade-button {
+  color: #ddd;
+  background-color: #fff2;
+  margin: 12px;
+
+  &:hover {
+    background-color: #fff4;
+  }
+}

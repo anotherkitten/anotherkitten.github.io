@@ -1,0 +1,87 @@
+.screen-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+
+  width: 100%;
+  height: 100vh;
+}
+
+.info-bar {
+  z-index: 4;
+  display: flex;
+  position: relative;
+  background-color: #333;
+  border-bottom: 2px #222 solid;
+  flex-grow: 0;
+  align-items: center;
+  
+  & > div {
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+
+    & + div {
+      border-left: #666 1px solid;
+    }
+  }
+}
+
+.info-coins {
+  padding: 16px;
+  color: gold;
+}
+
+.info-menu {
+  position: absolute;
+  right: 16px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.game-content {
+  flex-grow: 1;
+  position: relative;
+  padding: 16px;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 5;
+  color: #ddd;
+  font-size: 14px;
+  background-color: #222;
+  opacity: 0.8;
+  visibility: hidden;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+  user-select: none;
+
+  top: calc(100% + 4px);
+  left: -100px;
+  right: -100px;
+  margin: auto;
+  width: 150px;
+
+  &-save {
+    left: 0px;
+    right: unset;
+  }
+}
+
+.tooltip-header {
+  border-bottom: 1px solid #888;
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
+.tooltip-container:hover .tooltip, .tooltip-container:active .tooltip {
+  visibility: visible;
+}

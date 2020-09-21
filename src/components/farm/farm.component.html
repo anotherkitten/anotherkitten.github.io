@@ -1,0 +1,85 @@
+<div class="farm-body farm-subheader bottom-border">
+  <div class="farm-header">
+    The Farm
+  </div>
+  Grow various crops, expand your farm, and upgrade your silos.
+</div>
+<div class="farm-field-container farm-body bottom-border">
+  <table class="farm-field">
+    <tr class="farm-row" *ngFor="let row of getPlots()">
+      <td class="farm-plot" *ngFor="let plot of row">
+        <button mat-icon-button class="farm-icon-button" (click)="clickPlot(plot)" disableRipple="true">
+          <app-farm-icon *ngIf="plot.crop" [icon]="plot.crop.name" iconSize="48px"
+                         [iconColor]="plot.grown ? null : '#444'"> </app-farm-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <button class="upgrade-button tooltip-container" (click)="buyRow()" mat-raised-button>
+    Add Row ({{getCostOfNewRow()}} coins)
+  </button>
+</div>
+<div class="farm-body farm-crop-select bottom-border">
+  Select Crop:
+  <div class="tooltip-container" *ngFor="let crop of crops">
+    <button mat-icon-button class="farm-icon-button" (click)="selectCrop(crop.id)" [class.selected-crop]="selectedCrop === crop.id">
+      <app-farm-icon [icon]="crop.name" iconSize="48px"
+                    [iconColor]="crop.id === selectedCrop ? null : 'none'"> </app-farm-icon>
+    </button>
+    <div class="tooltip">
+      <div class="tooltip-header bottom-border">
+        {{crop.name | titlecase}}
+      </div>
+      Cost to plant: {{crop.cost}} <br>
+      Growth time: {{formatTime(crop.growthTime)}} <br>
+      Harvest time: {{formatTime(crop.prodRate)}} <br>
+      Sell value: {{crop.sellValue}}
+    </div>
+  </div>
+  <div class="tooltip-container">
+    <button mat-icon-button class="farm-icon-button" [class.selected-crop]="selectedCrop === 0" (click)="selectCrop(0)">
+      <app-farm-icon icon="cancel" iconSize="48px"
+                      [iconColor]="selectedCrop === 0 ? '#b44' : 'none'"> </app-farm-icon>
+    </button>
+    <div class="tooltip">
+      Clear Plot
+    </div>
+  </div>
+</div>
+<div class="bottom-section" *ngIf="selectedCrop > 0">
+  <div class="crop-info" *ngIf="selectedSilo">
+    <div class="crop-info-text bottom-border"> {{selectedSilo.crop.name | titlecase}} Plant Info </div>
+    <div class="crop-info-text">
+      Total Plants: {{getAmountPlantsOfCrop()}} <br>
+      Grown Plants: {{getAmountGrownPlantsOfCrop()}} <br>
+      Crops/sec: {{formatNum(getCropPerSecondOfCrop())}} <br>
+      Coins/sec: {{formatNum(getCoinsPerSecondOfCrop())}}
+    </div>
+  </div>
+  <div class="crop-info" *ngIf="selectedSilo">
+    <div class="crop-info-text bottom-border"> {{selectedSilo.crop.name | titlecase}} Silo Info </div>
+    <div class="crop-info-text bottom-border">
+      Silo Level: {{selectedSilo.capacityLevel}} <br>
+      Stored: {{selectedSilo.stored}} / {{selectedSilo.getCapacity()}}
+    </div>
+    <button class="upgrade-button tooltip-container" mat-raised-button (click)="upgradeSilo()">
+      Upgrade
+      <div class="tooltip">
+        Cost: {{selectedSilo.getUpgradeCost()}} <br>
+        New Capacity: {{selectedSilo.getCapacity(1)}}
+      </div>
+    </button>
+  </div>
+  <div class="crop-info">
+    <div class="crop-info-text bottom-border"> Sell {{selectedSilo.crop.name | titlecase}} </div>
+    <div class="crop-info-text">
+      Sell (% of silo capacity):
+    </div>
+    <div>
+      <button *ngFor="let percent of sellPercents" (click)="sellCrop(percent)" mat-raised-button
+              class="sell-crop-button">
+        {{percent}}
+      </button>
+    </div>
+  </div>
+</div>

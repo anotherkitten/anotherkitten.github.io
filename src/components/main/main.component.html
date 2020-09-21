@@ -1,0 +1,18 @@
+<div class="welcome-super-header"> Welcome to Ellie's Browser Game! </div>
+<hr>
+<div class="welcome-body">
+  This is a WIP incremental game based on interactivity and depth. <br>
+  Here you can unlock pages with new content.
+</div>
+<hr>
+<div class="welcome-header"> Page Store </div>
+<br>
+<div class="welcome-card-container">
+  <div class="welcome-card mat-elevation-z4" *ngFor="let page of pagesToBuy">
+    <div class="welcome-card-title"> {{page.name}} </div>
+    <div class="welcome-card-content"> {{page.desc}} </div>
+    <button mat-button class="welcome-card-cost mat-elevation-z1" (click)="buyPage(page.id)">
+      {{page.cost}} coins
+    </button>
+  </div>
+</div>

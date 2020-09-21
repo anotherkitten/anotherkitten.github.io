@@ -1,0 +1,48 @@
+<div class="screen-container">
+  <div class="info-bar mat-elevation-z3">
+    <div aria-haspopup="true" class="info-save tooltip-container">
+      <button mat-icon-button (click)="clickSave()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <div class="tooltip tooltip-save">
+        <div class="tooltip-header">
+          Save
+        </div>
+        Save to your browser. <br>
+        Autosaves every 30s. <br>
+        Last save: {{lastSaved}}.
+      </div>
+    </div>
+    <div class="info-save tooltip-container">
+      <button mat-icon-button (click)="clickSave()">
+        <mat-icon>archive</mat-icon>
+      </button>
+      <div class="tooltip tooltip-save">
+        <div class="tooltip-header">
+          Export
+        </div>
+        Export often to protect your save data. <br>
+        Last export: {{lastExported}}.
+      </div>
+    </div>
+    <div class="info-save tooltip-container">
+      <button mat-icon-button (click)="clickSave()">
+        <mat-icon>unarchive</mat-icon>
+      </button>
+      <div class="tooltip tooltip-save">
+        <div class="tooltip-header">
+          Import
+        </div>
+        Import a local savefile.
+      </div>
+    </div>
+    <div class="info-coins"> <b>Coins:&nbsp;</b> {{coin}} </div>
+    <button class="info-menu" mat-icon-button (click)="toggleMenu()">
+      <mat-icon> menu </mat-icon>
+    </button>
+  </div>
+  <div class="game-content">
+    <app-sidemenu [active]="menuopen"> </app-sidemenu>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="menu-container" [class.open]="active">
+  <div class="menu-link" routerLink="/main">
+    Page Store
+  </div>
+  <div class="menu-link" *ngFor="let page of getUnlockedPages()" [routerLink]="page.route">
+    {{page.name}}
+  </div>
+</div>

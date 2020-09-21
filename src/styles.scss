@@ -1,0 +1,19 @@
+/* Add application styles & imports to this file! */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "~material-design-icons/iconfont/material-icons.css";
+
+body {
+  --potato: hsl(40, 50%, 60%);
+  --carrot: hsl(30, 70%, 60%);
+
+  margin: 0;
+  background-color: #555;
+}
+
+div {
+  font: 16px Roboto, "Helvetica Nueu", sans-serif;
+}
+
+.material-icons {
+  color: #ddd;
+}

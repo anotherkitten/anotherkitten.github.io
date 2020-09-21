@@ -1,0 +1,32 @@
+<div class="coin-button-body bottom-border">
+  <div class="coin-button-header">
+    The Button Machine
+  </div>
+  Press the buttons to generate coins, and level them up to generate more per click.
+</div>
+<div class="coin-button-container bottom-border">
+  <div *ngFor="let btn of getButtons()">
+    <button class="coin-button" mat-button (click)="clickButton(btn.id)"
+            [disabled]="btn.disabled" [style.color]="btn.getShadowColor()"
+            [style.background-color]="btn.getColor()">
+    </button>
+    <div class="coin-button-info">
+      <mat-icon class="help-button">
+        help_outline
+        <div class="tooltip help-button-tooltip">
+          Button #{{btn.id}} <hr>
+          Level: {{btn.level}} <br>
+          Value: {{btn.getValue()}}
+        </div>
+      </mat-icon>
+      <mat-icon class="upgrade-button" (click)="upgradeButton(btn.id)">
+        add_circle_outline
+        <div class="tooltip upgrade-button-tooltip">
+          Upgrade Button <hr>
+          {{btn.getUpgradeCost()}} Coins <br>
+          New Value: {{btn.getValue() + btn.level + 1}}
+        </div>
+      </mat-icon>
+    </div>
+  </div>
+</div>

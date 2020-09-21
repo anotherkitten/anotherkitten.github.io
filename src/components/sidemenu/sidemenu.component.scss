@@ -1,0 +1,36 @@
+.menu-container {
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  width: 0;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: width .5s, border-left-width .5s;
+  overflow-x: hidden;
+
+  background-color: #444;
+  border-left: #222 0 solid;
+  margin-left: -2px;
+
+  &.open {
+    width: 200px;
+    transition: width .5s;
+    border-left: #222 2px solid;
+  }
+}
+
+.menu-link {
+  padding: 8px 16px;
+  transition: background-color 0.25s;
+  color: #bbb;
+  border-bottom: 1px #666 solid;
+  cursor: pointer;
+  white-space: nowrap;
+ 
+  &:hover {
+    background-color: #fff1;
+  }
+}
