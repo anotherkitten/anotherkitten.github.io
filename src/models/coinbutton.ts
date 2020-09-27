@@ -1,4 +1,4 @@
-import { timer } from 'rxjs';
+import { timer, Subscription } from 'rxjs';
 
 import { ButtonService } from 'src/services/button.service';
 
@@ -7,6 +7,7 @@ export class CoinButton {
   level: number;
   rechargeTime: number;
   disabled: boolean;
+  disabledTimer: Subscription;
   buttonService: ButtonService;
 
   constructor(buttonService: ButtonService) {
@@ -19,7 +20,12 @@ export class CoinButton {
 
   trigger() {
     this.disabled = true;
-    timer(this.rechargeTime).subscribe(() => {this.disabled = false});
+    this.disabledTimer = timer(this.rechargeTime).subscribe(() => this.popUp());
+  }
+
+  popUp() {
+    this.disabled = false;
+    if (this.disabledTimer) this.disabledTimer.unsubscribe();
   }
 
   upgrade() {

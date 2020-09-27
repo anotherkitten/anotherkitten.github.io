@@ -17,3 +17,18 @@ div {
 .material-icons {
   color: #ddd;
 }
+
+.mat-tab-label {
+  &-content {
+    color: #ddd;
+    font-weight: bold;
+  }
+
+  &:hover, &.mat-tab-label-active {
+    background-color: #fff1; 
+  }
+}
+
+.mat-tab-group.inkbar-white .mat-tab-list .mat-ink-bar {
+  background-color: #888;
+}

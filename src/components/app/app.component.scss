@@ -15,7 +15,7 @@
   border-bottom: 2px #222 solid;
   flex-grow: 0;
   align-items: center;
-  
+
   & > div {
     min-width: 50px;
     display: flex;
@@ -38,6 +38,10 @@
   top: 0;
   bottom: 0;
   margin: auto;
+}
+
+.import-input {
+  display: none;
 }
 
 .game-content {

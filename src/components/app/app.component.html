@@ -13,8 +13,8 @@
         Last save: {{lastSaved}}.
       </div>
     </div>
-    <!--div class="info-save tooltip-container">
-      <button mat-icon-button (click)="clickSave()">
+    <div class="info-save tooltip-container">
+      <button mat-icon-button (click)="clickExport()">
         <mat-icon>archive</mat-icon>
       </button>
       <div class="tooltip tooltip-save">
@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="info-save tooltip-container">
-      <button mat-icon-button (click)="clickSave()">
+      <button mat-icon-button (click)="importfile.click()">
         <mat-icon>unarchive</mat-icon>
       </button>
       <div class="tooltip tooltip-save">
@@ -34,8 +34,10 @@
           Import
         </div>
         Import a local savefile.
+        <input #importfile class="import-input" (change)="importSave($event)" type="file" accept=".json" multiple="false">
       </div>
-    </div-->
+
+    </div>
     <div class="info-coins"> <b>Coins:&nbsp;</b> {{coin}} </div>
     <button class="info-menu" mat-icon-button (click)="toggleMenu()">
       <mat-icon> menu </mat-icon>

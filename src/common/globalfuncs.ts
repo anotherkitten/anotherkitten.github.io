@@ -1,10 +1,10 @@
-export function formatNum(num: number, digits?: number): string {
-  const useDefault = (digits === null);
-
-  if (num < 1e6) {
-    return num.toFixed(useDefault ? digits : 1);
+export function formatNum(num: number): string {
+  if (num < 10) {
+    return num.toFixed(1)
+  } if (num < 1e6) {
+    return num.toFixed();
   } else {
-    return num.toExponential(useDefault ? digits : 2);
+    return num.toExponential(2);
   }
 }
 

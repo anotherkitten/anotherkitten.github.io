@@ -1,0 +1,15 @@
+<div class="upg-container">
+  <button *ngIf="upgrade" class="upg-button" mat-raised-button
+          [disabled]="disabled" (click)="clickButton()">
+    {{upgrade.name}}
+  </button>
+  <div class="upg-text upg-cost">
+    {{formatNum(upgrade.getCost())}} coins.
+  </div>
+  <div class="upg-text upg-level">
+    {{upgrade.level}} / {{upgrade.limit}}
+  </div>
+  <div class="upg-text">
+    {{upgrade.effect}}
+  </div>
+</div>

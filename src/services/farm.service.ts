@@ -36,7 +36,7 @@ export class FarmService implements OnDestroy, Saveable {
     this.plots = data.plots.map((plotRow: CropPlot[]) => plotRow.map((plot: CropPlot) => Object.assign(new CropPlot(0,0), plot, {
       crop: plot.crop ? this.getCrop(plot.crop.id) : null
     })));
-    this.silos = data.silos.map((silo: CropSilo) => Object.assign(new CropSilo(null), silo, {
+    this.silos = data.silos.map((silo: CropSilo) => Object.assign(this.getSilo(silo.crop.id), silo, {
       crop: this.getCrop(silo.crop.id)
     }));
   }

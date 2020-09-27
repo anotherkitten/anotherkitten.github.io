@@ -1,10 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
+import { FileSaverService } from 'ngx-filesaver';
 
 import { ButtonService } from 'src/services/button.service';
 import { CoinService } from 'src/services/coin.service';
 import { FarmService } from 'src/services/farm.service';
 import { PageService } from 'src/services/page.service';
+import { UpgradeService } from 'src/services/upgrade.service';
 
 import { Save, Saveable, SaveFile } from 'src/models/save';
 
@@ -21,13 +23,16 @@ export class SaveService implements OnDestroy {
     buttons: this.buttonService,
     coins: this.coinService,
     farm: this.farmService,
-    page: this.pageService
+    page: this.pageService,
+    upgrades: this.upgradeService
   };
 
   constructor(private buttonService: ButtonService,
               private coinService: CoinService,
               private farmService: FarmService,
-              private pageService: PageService) {
+              private pageService: PageService,
+              private upgradeService: UpgradeService,
+              private fsService: FileSaverService) {
     this.$autosave = interval(30e3).subscribe(() => this.browserSave());
   }
 
@@ -78,7 +83,10 @@ export class SaveService implements OnDestroy {
   }
 
   exportSave() {
+    const saveFile = this.generateSave();
+    const jsonSaveFile = JSON.stringify(saveFile, this.jsonFilter);
 
+    this.fsService.saveText(jsonSaveFile, "EllieBrowsergameSave.json")
   }
 
   importSave() {

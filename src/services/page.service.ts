@@ -13,8 +13,8 @@ export class PageService implements Saveable {
     new Page(2, 250, "Farm",
              "A farm with land for crops to be planted and harvested.\n\nA great way to start building passive income!",
              "/farm"),
-    new Page(3, 99999, "WIP Upgrade Store",
-             "not yet implemented\n\nsorry",//"A shop that sells upgrades for your unlocked pages.\n\nThe backbone of all your future progression.",
+    new Page(3, 2500, "WIP Upgrade Store",
+             "not yet implemented\n\nsorry!!",//"A shop that sells upgrades for your unlocked pages.\n\nThe backbone of all your future progression.",
              "/upgrades")
   ]
 
@@ -29,7 +29,7 @@ export class PageService implements Saveable {
   }
 
   load(data: Save) {
-    this.pages = data.pages.map((page: Page) => Object.assign(new Page(0,0,"","",""), page));
+    data.pages.forEach((page: Page) => this.getPage(page.id).unlocked = page.unlocked);
   }
 
   getLockedPages() {

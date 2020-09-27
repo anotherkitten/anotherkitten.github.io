@@ -19,11 +19,24 @@ export class CoinbuttonComponent implements OnInit {
     return this.buttonService.buttons;
   }
 
+  getDownButtons() {
+    return this.getButtons().filter(btn => btn.disabled);
+  }
+
   clickButton(id: number) {
+    const downedButtons = this.getDownButtons();
+    if (downedButtons.length && Math.random() * 100 < this.buttonService.buttonPopUpChance) {
+      downedButtons[Math.floor(Math.random() * downedButtons.length)].popUp();
+    }
+
     this.buttonService.pressButton(id);
   }
 
   upgradeButton(id: number) {
     this.buttonService.upgradeButton(id);
+  }
+
+  getBtnVal(button: CoinButton, num?: number) {
+    return this.buttonService.getButtonVal(button, num);
   }
 }

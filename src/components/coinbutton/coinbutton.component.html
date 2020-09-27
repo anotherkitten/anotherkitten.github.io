@@ -16,7 +16,7 @@
         <div class="tooltip help-button-tooltip">
           Button #{{btn.id}} <hr>
           Level: {{btn.level}} <br>
-          Value: {{btn.getValue()}}
+          Value: {{getBtnVal(btn)}}
         </div>
       </mat-icon>
       <mat-icon class="upgrade-button" (click)="upgradeButton(btn.id)">
@@ -24,7 +24,7 @@
         <div class="tooltip upgrade-button-tooltip">
           Upgrade Button <hr>
           {{btn.getUpgradeCost()}} Coins <br>
-          New Value: {{btn.getValue() + btn.level + 1}}
+          New Value: {{getBtnVal(btn, 1)}}
         </div>
       </mat-icon>
     </div>
