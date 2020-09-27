@@ -5,15 +5,19 @@
   Purchase upgrades to make your other pages more productive.
 </div>
 
-<mat-tab-group disableRipple="true" class="inkbar-white">
+<mat-tab-group disableRipple="true" class="inkbar-white" dynamicHeight>
   <mat-tab label="Buttons">
     <div class="store-page">
-      <app-upgrade-button *ngFor="let upg of buttonUpgrades1"
+      <app-upgrade-button *ngFor="let upg of sortUpgs(buttonUpgrades1)"
                           class="upg-button" [upgrade]="upg"
                           [disabled]="!canBuy(upg)" (upgradeButton)="buyUpgrade(upg.id)"></app-upgrade-button>
     </div>
   </mat-tab>
   <mat-tab label="Farm">
-
+    <div class="store-page">
+      <app-upgrade-button *ngFor="let upg of sortUpgs(farmUpgrades1)"
+                          class="upg-button" [upgrade]="upg"
+                          [disabled]="!canBuy(upg)" (upgradeButton)="buyUpgrade(upg.id)"></app-upgrade-button>
+    </div>
   </mat-tab>
 </mat-tab-group>

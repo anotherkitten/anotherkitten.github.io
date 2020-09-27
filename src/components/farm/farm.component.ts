@@ -50,12 +50,12 @@ export class FarmComponent implements OnInit {
                            .length;
   }
 
-  getCropPerSecondOfCrop() {
-    return this.getAmountGrownPlantsOfCrop() * 1000 / this.farmService.getCrop(this.selectedCrop).prodRate;
+  getCropPerMinuteOfCrop() {
+    return this.getAmountGrownPlantsOfCrop() * 60e3 / this.farmService.getCrop(this.selectedCrop).prodRate;
   }
 
   getCoinsPerSecondOfCrop() {
-    return this.getCropPerSecondOfCrop() * this.farmService.getCrop(this.selectedCrop).sellValue;
+    return this.getCropPerMinuteOfCrop() / 60 * this.farmService.getCrop(this.selectedCrop).sellValue;
   }
 
   clickPlot(plot: CropPlot) {

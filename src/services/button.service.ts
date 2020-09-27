@@ -62,7 +62,7 @@ export class ButtonService implements Saveable {
     const getUpg = (id: number) => this.upgradeService.getUpgrade(id);
     getUpg(1).$onLoadAndPurchase.subscribe(() => this.buttonMult *= 2);
     getUpg(2).$onLoadAndPurchase.subscribe(() => this.buttonPopUpChance += 5);
-    getUpg(3).$onPurchase.subscribe(() => this.buttonUpgradeCostScalingInterval += 3);
+    getUpg(3).$onLoadAndPurchase.subscribe(() => this.buttonUpgradeCostScalingInterval += 3);
     getUpg(4).$onPurchase.subscribe(() => this.addButton());
   }
 }

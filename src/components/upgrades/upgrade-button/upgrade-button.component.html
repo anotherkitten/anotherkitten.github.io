@@ -3,7 +3,10 @@
           [disabled]="disabled" (click)="clickButton()">
     {{upgrade.name}}
   </button>
-  <div class="upg-text upg-cost">
+  <div class="upg-text upg-cost" *ngIf="isMaxed()">
+    --- coins.
+  </div>
+  <div class="upg-text upg-cost" *ngIf="!isMaxed()">
     {{formatNum(upgrade.getCost())}} coins.
   </div>
   <div class="upg-text upg-level">

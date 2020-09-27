@@ -62,10 +62,15 @@ export class Upgrade {
 }
 
 const buttonUpgrades: Upgrade[] = [
-  new Upgrade(1).scaling("Button Multiplier", "2x to button value.", 2500, 5, (c, l) => (c * 4 ** l)),
-  new Upgrade(2).multi("Popup Chance", "Add a 5% chance clicking a button will pop another button back up.", 5000, 10),
-  new Upgrade(3).single("Cheaper Upgrades", "Reduces button level cost scaling.", 10000),
+  new Upgrade(1).scaling("Button Multiplier", "2x to button value.", 5000, 5, (c, l) => (c * 10 ** l)),
+  new Upgrade(2).scaling("Popup Chance", "Add a 5% chance clicking a button will pop another button back up.", 1000, 10, (c, l) => (c * l + 1000)),
+  new Upgrade(3).single("Cheaper Levels", "Reduces button level cost scaling.", 10000),
   new Upgrade(4).single("New Button", "Adds a third button.", 20000)
 ]
 
-export const UPGRADES: Upgrade[] = [].concat(buttonUpgrades);
+const farmUpgrades: Upgrade[] = [
+  new Upgrade(101).single("Autosell", "Harvested crops automatically sell for 20% when silo is full.", 25000),
+  new Upgrade(102).single("Good Fertilizer", "Crops grow 25% faster.", 50000)
+]
+
+export const UPGRADES: Upgrade[] = [].concat(buttonUpgrades, farmUpgrades);

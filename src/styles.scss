@@ -5,6 +5,7 @@
 body {
   --potato: hsl(40, 50%, 60%);
   --carrot: hsl(30, 70%, 60%);
+  --radish: hsl(10, 60%, 60%);
 
   margin: 0;
   background-color: #555;
@@ -25,7 +26,7 @@ div {
   }
 
   &:hover, &.mat-tab-label-active {
-    background-color: #fff1; 
+    background-color: #fff1;
   }
 }
 

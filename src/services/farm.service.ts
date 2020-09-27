@@ -1,22 +1,28 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { timer, Subscription } from 'rxjs';
 
 import { CoinService } from 'src/services/coin.service';
+import { UpgradeService } from 'src/services/upgrade.service';
 import { Crop, CropPlot, CropSilo } from 'src/models/farm';
 import { Save, Saveable } from 'src/models/save';
 
 @Injectable()
 export class FarmService implements OnDestroy, Saveable {
+  crops: Crop[] = [];
   plots: CropPlot[][] = [];
   silos: CropSilo[] = [];
+  autosell = 0;
   $checkCrops: Subscription;
 
-  constructor(private coinService: CoinService) {
+  constructor(private coinService: CoinService,
+              private upgService: UpgradeService) {
     this.addRow();
     this.addRow();
-    this.silos = this.getCrops().map(crop => new CropSilo(crop));
+    this.crops = this.makeCrops();
+    this.subscribeToUpgrades();
 
-    this.$checkCrops = interval(1000).subscribe(this.checkCrops);
+    this.silos = this.crops.map(crop => new CropSilo(crop));
+    this.$checkCrops = timer(1, 1000).subscribe(this.checkCrops);
   }
 
   ngOnDestroy() {
@@ -26,7 +32,7 @@ export class FarmService implements OnDestroy, Saveable {
   save(): Save {
     const data = {
       plots: this.plots,
-      silos: this.silos
+      silos: this.silos.map(silo => { return { capacityLevel: silo.capacityLevel, cropId: silo.crop.id, stored: silo.stored }; })
     }
 
     return data;
@@ -36,16 +42,27 @@ export class FarmService implements OnDestroy, Saveable {
     this.plots = data.plots.map((plotRow: CropPlot[]) => plotRow.map((plot: CropPlot) => Object.assign(new CropPlot(0,0), plot, {
       crop: plot.crop ? this.getCrop(plot.crop.id) : null
     })));
-    this.silos = data.silos.map((silo: CropSilo) => Object.assign(this.getSilo(silo.crop.id), silo, {
-      crop: this.getCrop(silo.crop.id)
+    this.silos.map((silo: CropSilo) => Object.assign(this.getSilo(silo.crop.id), data.silos.find(s => s.cropId === silo.crop.id)));
+  }
+
+  subscribeToUpgrades() {
+    this.upgService.getUpgrade(101).$onLoadAndPurchase.subscribe(() => this.autosell += 20);
+    this.upgService.getUpgrade(102).$onLoadAndPurchase.subscribe(() => this.crops.forEach(crop => {
+      crop.growthTime /= 1.25;
+      crop.prodRate /= 1.25;
     }));
   }
 
   // // // // CROP STUFF
-  getCrops(): Crop[] {
-    const potato = new Crop(1, "potato", "Basic crop", 50, 15e3, 5e3, 5);
-    const carrot = new Crop(2, "carrot", "Basic crop", 750, 30e3, 15e3, 35);
-    return [potato, carrot];
+  makeCrops(): Crop[] {
+    const potato = new Crop(1, "potato", "Everyone loves a potato", 50, 15e3, 5e3, 5);
+    const carrot = new Crop(2, "carrot", "Optometrist's favorite", 750, 30e3, 15e3, 35);
+    const radish = new Crop(3, "radish", "Not quite rad, but close enough", 12500, 12e4, 45e3, 300);
+    return [potato, carrot, radish];
+  }
+
+  getCrops() {
+    return this.crops;
   }
 
   getCrop(id: number): Crop {
@@ -72,7 +89,15 @@ export class FarmService implements OnDestroy, Saveable {
     this.plots.reduce((flat, val) => flat.concat(val), [])
       .filter((plot: CropPlot) => plot.crop)
       .forEach((plot: CropPlot) => {
-        this.getSilo(plot.crop.id).add(plot.getHarvests());
+        const silo = this.getSilo(plot.crop.id);
+        const amount = plot.getHarvests();
+        const leftover = amount - (silo.getCapacity() - silo.stored);
+
+        silo.add(amount);
+
+        if (leftover > 0) {
+          this.coinService.addCoins(this.autosell / 100 * leftover * silo.crop.sellValue);
+        }
       });
   }
 

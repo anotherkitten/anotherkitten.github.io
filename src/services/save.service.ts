@@ -8,7 +8,7 @@ import { FarmService } from 'src/services/farm.service';
 import { PageService } from 'src/services/page.service';
 import { UpgradeService } from 'src/services/upgrade.service';
 
-import { Save, Saveable, SaveFile } from 'src/models/save';
+import { Saveable, SaveFile } from 'src/models/save';
 
 import { formatTime } from 'src/common/globalfuncs';
 
@@ -17,7 +17,7 @@ export class SaveService implements OnDestroy {
   lastSaved = +new Date();
   lastExported = 0;
   $autosave: Subscription;
-  curVersion = "v0.0.1";
+  curVersion = "v0.0.2";
 
   saveServices: {[key: string]: Saveable} = {
     buttons: this.buttonService,
@@ -50,7 +50,9 @@ export class SaveService implements OnDestroy {
   }
 
   generateSave(): SaveFile {
-    const saveFile: SaveFile = {}; //{ info: { version: this.curVersion }};
+    const saveFile: SaveFile = {
+      saveinfo: { version: this.curVersion }
+    };
 
     for (let key in this.saveServices) {
       saveFile[key] = this.saveServices[key].save();
@@ -69,8 +71,15 @@ export class SaveService implements OnDestroy {
       }
     }
 
+    const saveInfo = saveFile["saveinfo"];
+    if (!saveInfo || saveInfo.version !== this.curVersion) {
+      // version compatibility switch here later
+
+      return;
+    }
+
     for (let key in saveFile) {
-      this.saveServices[key].load(saveFile[key]);
+      if (this.saveServices[key]) this.saveServices[key].load(saveFile[key]);
     }
   }
 

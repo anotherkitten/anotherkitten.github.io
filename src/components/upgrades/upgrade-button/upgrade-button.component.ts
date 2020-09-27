@@ -24,4 +24,8 @@ export class UpgradeButtonComponent implements OnInit {
   clickButton() {
     this.upgradeButton.emit();
   }
+
+  isMaxed() {
+    return this.upgrade.level >= this.upgrade.limit;
+  }
 }

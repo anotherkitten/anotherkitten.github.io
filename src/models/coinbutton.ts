@@ -38,11 +38,11 @@ export class CoinButton {
   }
 
   getColor(): string {
-    return `hsl(${60 - Math.min(this.level, 30) * 10},70%,60%)`
+    return `hsl(${60 - this.level * 10},70%,60%)`
   }
 
   getShadowColor(): string {
-    return `hsl(${60 - Math.min(this.level, 30) * 10},35%,40%)`
+    return `hsl(${60 - this.level * 10},35%,40%)`
   }
 
   getUpgradeCost() {
@@ -53,6 +53,6 @@ export class CoinButton {
       costScale += Math.ceil(i / costScalingInterval);
     }
 
-    return ((9 + costScale) * this.getValue());
+    return ((4 + costScale) * this.getValue());
   }
 }
